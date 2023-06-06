@@ -20,11 +20,9 @@ TRANSLATION = ("a", "b", "v", "h", "d", "e", "e", "zh", "z", "y", "i", "k", "l",
 
 TRANS = {}
 
-
-def init_normalize_map() -> None:
-    for c, t in zip(CYRILLIC_SYMBOLS, TRANSLATION):
-        TRANS[ord(c)] = t
-        TRANS[ord(c.upper())] = t.upper()
+for c, t in zip(CYRILLIC_SYMBOLS, TRANSLATION):
+    TRANS[ord(c)] = t
+    TRANS[ord(c.upper())] = t.upper()
 
 
 def normalize(name: str) -> str:
@@ -135,13 +133,13 @@ def purge_empty(source_path: Path) -> None:
 
 def main():
     if len(sys.argv) < 2:
-        path = "test_tree"
-        print("path is not defined by args, used default:", path)
-    else:
-        path = sys.argv[1]
+        print("path is not defined by args, exit")
+        exit(1)
+
+    path = sys.argv[1]
 
     if not Path(path).exists():
-        print(f'path "{path}" is not exist, exiting.')
+        print(f'path "{path}" is not exist, exit')
         exit(1)
 
     result = {
@@ -149,7 +147,6 @@ def main():
         "found_extensions": {"known": set(), "unknown": set()},
     }
 
-    init_normalize_map()
     file_list = browse_files(path)
     
     print("\nList before moving:", *file_list, sep="\n")
