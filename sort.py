@@ -28,7 +28,7 @@ def init_normalize_map() -> None:
 
 
 def normalize(name: str) -> str:
-    return re.sub(r"(?!\.)\W+","_",name).translate(TRANS)
+    return re.sub(r"[^a-zA-Z0-9._]", "_", name.translate(TRANS))
 
 
 def browse_files(path: Path) -> list:
