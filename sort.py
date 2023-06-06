@@ -2,6 +2,7 @@ from pathlib import Path
 import shutil
 import sys
 import uuid
+import re
 
 
 TYPES = {
@@ -27,7 +28,7 @@ def init_normalize_map() -> None:
 
 
 def normalize(name: str) -> str:
-    return name.translate(TRANS)
+    return re.sub(r"(?!\.)\W+","_",name).translate(TRANS)
 
 
 def browse_files(path: Path) -> list:
@@ -158,7 +159,7 @@ def main():
     print(
         "\nSorted types before moving:",
         *[
-            f"\n{filetype}: {[ item_file.as_posix() for item_file in list_files ]}"
+            f"{filetype}: {[ item_file.as_posix() for item_file in list_files ]}"
             for filetype, list_files in result["found_files_by_type"].items()
         ],
         sep="\n",
