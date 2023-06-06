@@ -9,24 +9,24 @@ TYPES = {
     "images": ("JPEG", "PNG", "JPG", "SVG"),
     "documents": ("DOC", "DOCX", "TXT", "PDF", "XLSX", "PPTX"),
     "music": ("MP3", "OGG", "WAV", "AMR"),
-    "archive": ("ZIP", "GZ", "TAR"),
+    "archive": ("ZIP", "GZ", "TAR")
 }
 
 
 CYRILLIC_SYMBOLS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ"
 TRANSLATION = ("a", "b", "v", "h", "d", "e", "e", "zh", "z", "y", "i", "k", "l", "m", "n", "o", "p", "r", "s",
-               "t", "u", "f", "kh", "ts", "ch", "sh", "shch", "", "y", "", "e", "yu", "ya", "ye", "i", "yi", "g",)
+               "t", "u", "f", "kh", "ts", "ch", "sh", "shch", "", "y", "", "e", "yu", "ya", "ye", "i", "yi", "g")
 
 TRANS = {}
 
 
-def init_normalize_map():
+def init_normalize_map() -> None:
     for c, t in zip(CYRILLIC_SYMBOLS, TRANSLATION):
         TRANS[ord(c)] = t
         TRANS[ord(c.upper())] = t.upper()
 
 
-def normalize(name):
+def normalize(name: str) -> str:
     return name.translate(TRANS)
 
 
@@ -81,14 +81,15 @@ def sort_by_type(files: list, result) -> None:
             found_files[k] = el
 
 
-def set_uniq_name(path: Path):
+def set_uniq_name(path: Path) -> Path:
     name_stem = path.stem
     while path.exists():
         path = path.with_stem(f"{name_stem}_{uuid.uuid4()}")
+
     return path
 
 
-def move_files_by_types(path: Path, result):
+def move_files_by_types(path: Path, result) -> None:
     found_files = result["found_files_by_type"]
     for file_type, files in found_files.items():
         p = Path(path).joinpath(file_type)
@@ -119,7 +120,7 @@ def move_files_by_types(path: Path, result):
                     print("Exception move", e)
 
 
-def purge_empty(source_path: Path):
+def purge_empty(source_path: Path) -> None:
     path_list = browse_dirs(source_path)
     path_list.reverse()
     for path in path_list:
@@ -149,8 +150,11 @@ def main():
 
     init_normalize_map()
     file_list = browse_files(path)
+    
     print("\nList before moving:", *file_list, sep="\n")
+    
     sort_by_type(file_list, result)
+    
     print(
         "\nSorted types before moving:",
         *[
@@ -161,8 +165,10 @@ def main():
     )
     print("\nSorted extensions before moving:",
           result["found_extensions"], sep="\n")
+    
     move_files_by_types(path, result)
     purge_empty(path)
+    
     file_list = browse_files(path)
     print("\nList after moving:", *file_list, sep="\n")
 
