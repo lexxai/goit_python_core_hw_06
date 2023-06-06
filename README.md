@@ -56,15 +56,10 @@ test_tree\tree2\tree2-2\file2-2-2.zip
 test_tree\tree2\tree2-2\відео.mp4
 
 Sorted types before moving:
-
 images: ['test_tree/file0-0-1.jpg', 'test_tree/tree1/tree1-1/file1-1-1.jpg', 'test_tree/tree1/tree1-2/file1-2-1.jpg', 'test_tree/tree2/file0-2-1.jpg', 'test_tree/tree2/tree2-1/file2-1-1.jpg']
-
 archive: ['test_tree/file0-0-2.zip', 'test_tree/tree1/tree1-1/file1-1-2.zip', 'test_tree/tree1/tree1-2/file1-2-2.zip', 'test_tree/tree2/file0-2-2.zip', 'test_tree/tree2/tree2-1/file2-1-2.zip', 'test_tree/tree2/tree2-2/file2-2-2.zip']
-
 video: ['test_tree/tree1/tree1-2/відео-1-2-3.mp4', 'test_tree/tree2/tree2-1/відео.mp4', 'test_tree/tree2/tree2-2/відео.mp4']
-
 others: ['test_tree/tree2/tree2-1/file2-1-3.rrr']
-
 documents: ['test_tree/tree2/tree2-1/документ-2-1-3.doc']
 
 Sorted extensions before moving:
