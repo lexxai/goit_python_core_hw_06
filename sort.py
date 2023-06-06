@@ -14,45 +14,8 @@ TYPES = {
 
 
 CYRILLIC_SYMBOLS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ"
-TRANSLATION = (
-    "a",
-    "b",
-    "v",
-    "h",
-    "d",
-    "e",
-    "e",
-    "zh",
-    "z",
-    "y",
-    "i",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "r",
-    "s",
-    "t",
-    "u",
-    "f",
-    "kh",
-    "ts",
-    "ch",
-    "sh",
-    "shch",
-    "",
-    "y",
-    "",
-    "e",
-    "yu",
-    "ya",
-    "ye",
-    "i",
-    "yi",
-    "g",
-)
+TRANSLATION = ("a", "b", "v", "h", "d", "e", "e", "zh", "z", "y", "i", "k", "l", "m", "n", "o", "p", "r", "s",
+               "t", "u", "f", "kh", "ts", "ch", "sh", "shch", "", "y", "", "e", "yu", "ya", "ye", "i", "yi", "g",)
 
 TRANS = {}
 
@@ -196,7 +159,8 @@ def main():
         ],
         sep="\n",
     )
-    print("\nSorted extensions before moving:", result["found_extensions"], sep="\n")
+    print("\nSorted extensions before moving:",
+          result["found_extensions"], sep="\n")
     move_files_by_types(path, result)
     purge_empty(path)
     file_list = browse_files(path)
