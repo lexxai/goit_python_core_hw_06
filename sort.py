@@ -159,14 +159,8 @@ def move_files_by_types(path: Path, result):
 def purge_empty(source_path: Path):
     path_list = browse_dirs(source_path)
     path_list.reverse()
-    types = TYPES.keys()
     for path in path_list:
-        if (
-            path.exists()
-            and path.is_dir
-            and path.parts[1] not in types
-            and len(sorted(path.glob("*"))) == 0
-        ):
+        if path.exists() and path.is_dir and not any(path.glob("*")):
             # print("PURGE", path)
             try:
                 path.rmdir()
@@ -192,11 +186,21 @@ def main():
 
     init_normalize_map()
     file_list = browse_files(path)
+    print("\nList before moving:", *file_list, sep="\n")
     sort_by_type(file_list, result)
+    print(
+        "\nSorted types before moving:",
+        *[
+            f"\n{filetype}: {[ item_file.as_posix() for item_file in list_files ]}"
+            for filetype, list_files in result["found_files_by_type"].items()
+        ],
+        sep="\n",
+    )
+    print("\nSorted extensions before moving:", result["found_extensions"], sep="\n")
     move_files_by_types(path, result)
     purge_empty(path)
-
-    print(result)
+    file_list = browse_files(path)
+    print("\nList after moving:", *file_list, sep="\n")
 
 
 if __name__ == "__main__":
